@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "repository": "github:mat127/ws-ad-alert",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +11,10 @@
   "author": "mat127",
   "license": "",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.150.0",
+    "@aws-sdk/lib-dynamodb": "^3.159.0",
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "nodemailer": "^6.7.7"
   }
 }

@@ -4,7 +4,7 @@ import { getLastAd, saveLastAd } from '../libs/ddbAdRepository.js';
 async function getNewAds(ads) {
     const lastAd = await getLastAd();
     const idx = ads.indexOf(lastAd);
-    return ads.slice(0, idx);
+    return idx >= 0 ? ads.slice(0, idx) : ads;
 }
 
 parseAds()

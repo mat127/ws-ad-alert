@@ -7,13 +7,19 @@ async function getNewAds(ads) {
     return idx >= 0 ? ads.slice(0, idx) : ads;
 }
 
-parseAds()
-    .then(ads => getNewAds(ads))
-    .then(function(newAds) {
+async function run() {
+    try {
+        const ads = await parseAds();
+        const newAds = await getNewAds(ads);
         // TODO: notify new ads
         console.log(newAds);
         if(newAds.length > 0) {
             saveLastAd(newAds[0]);
         }
-    })
-    .catch(error => console.log(error));
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+run();

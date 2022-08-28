@@ -1,5 +1,6 @@
 import { parseAds } from '../libs/adParser.js';
 import { getLastAd, saveLastAd } from '../libs/ddbAdRepository.js';
+import { notify } from '../libs/mailNotifier.js';
 
 async function getNewAds(ads) {
     const lastAd = await getLastAd();
@@ -11,15 +12,16 @@ async function run() {
     try {
         const ads = await parseAds();
         const newAds = await getNewAds(ads);
-        // TODO: notify new ads
-        console.log(newAds);
+        const promises = [ notify(newAds) ];
         if(newAds.length > 0) {
-            saveLastAd(newAds[0]);
+            promises.push(saveLastAd(newAds[0]));
         }
+        return Promise.all(promises);
     }
     catch(error) {
         console.log(error);
     }
 }
 
-run();
+run()
+    .then(() => process.exit());

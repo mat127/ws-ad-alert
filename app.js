@@ -12,7 +12,6 @@ async function getNewAds(ads) {
 export async function run() {
     try {
         const ads = await parseAds();
-        await saveLastAd(ads[3]);
         const newAds = await getNewAds(ads);
         const promises = [ notify(newAds) ];
         if(newAds.length > 0) {

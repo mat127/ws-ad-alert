@@ -1,6 +1,6 @@
-import { parseAds } from '../libs/adParser.js';
-import { getLastAd, saveLastAd } from '../libs/ddbAdRepository.js';
-import { notify } from '../libs/mailNotifier.js';
+import { parseAds } from './libs/adParser.js';
+import { getLastAd, saveLastAd } from './libs/ddbAdRepository.js';
+import { notify } from './libs/mailNotifier.js';
 
 async function getNewAds(ads) {
     const lastAd = await getLastAd();
@@ -8,9 +8,11 @@ async function getNewAds(ads) {
     return idx >= 0 ? ads.slice(0, idx) : ads;
 }
 
-async function run() {
+// export for AWS as a lambda handler
+export async function run() {
     try {
         const ads = await parseAds();
+        await saveLastAd(ads[3]);
         const newAds = await getNewAds(ads);
         const promises = [ notify(newAds) ];
         if(newAds.length > 0) {

@@ -12,12 +12,9 @@ const transporter = nodemailer.createTransport({
     }
 },{
     from: process.env.MAIL_FROM,
-    to: process.env.MAIL_TO,
-    subject: "WsAd!"
+    to: process.env.MAIL_TO
 });
 
-export async function notify(ads) {
-    return Promise.all(ads.map(
-        ad => transporter.sendMail({ 'text': ad })
-    ));
+export async function notify(subject, text) {
+    return transporter.sendMail({ subject: subject, text: text });
 }

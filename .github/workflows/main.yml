@@ -1,0 +1,13 @@
+name: ws-ad-alert
+run-name: ${{ github.actor }} is using actions
+on: [push]
+jobs:
+  build-lambda-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm run-script lambda-pack

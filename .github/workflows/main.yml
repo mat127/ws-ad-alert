@@ -5,9 +5,17 @@ jobs:
   build-lambda-zip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: npm install, lambda-pack
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm install
-      - run: npm run-script lambda-pack
+      - run: |
+          npm install
+          npm run-script lambda-pack
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: lambda-zip
+          path: lambda.zip

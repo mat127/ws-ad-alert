@@ -14,12 +14,16 @@ function parseDate(text) {
 
 class Bazos extends Site {
 
-    site = 'bazos.cz';
-
     url = 'https://sport.bazos.cz/inzeraty/windsurf/';
 
+    constructor(site, selector) {
+        super();
+        this.site = site;
+        this.selector = selector;
+    }
+
     parse($) {
-        return $('.inzeraty .inzeratynadpis')
+        return $(this.selector)
             .map(function (i, e) {
                 const dateStr = $('span[class=velikost10]', e).text();
                 const title = $('.nadpis', e).text();
@@ -33,4 +37,5 @@ class Bazos extends Site {
     }
 }
 
-export default new Bazos();
+export const bazosTop = new Bazos('top.bazos.cz', '.inzeraty .inzeratynadpis:has(.ztop)');
+export const bazos = new Bazos('bazos.cz', '.inzeraty .inzeratynadpis:not(:has(.ztop))');

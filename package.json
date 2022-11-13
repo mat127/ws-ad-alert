@@ -6,6 +6,7 @@
   "type": "module",
   "repository": "github:mat127/ws-ad-alert",
   "scripts": {
+    "start": "node app.js",
     "prelambda-pack": "rm -f lambda.zip",
     "lambda-pack": "zip -r lambda.zip ./libs ./node_modules/ lambda.js package.json",
     "lambda-deploy": "aws lambda update-function-code --function-name ws-ad-alert --zip-file fileb://lambda.zip",
